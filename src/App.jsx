@@ -1,29 +1,38 @@
 import { BrowserRouter } from "react-router-dom";
-import JourneyTimeline from "./components/JourneyTimeline";
+import { useState } from "react";   
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import EventsComponent from "./components/EventsComponent";
+import JourneyTimeline from "./components/JourneyTimeline";
 import Contact from "./components/contact";
 
 function App() {
+  const [selectedEvent, setSelectedEvent] = useState(null);
+
   return (
     <BrowserRouter>
-      <Navbar />
+      {/* ✅ SINGLE navbar, controlled */}
+      <Navbar hidden={!!selectedEvent} />
 
-      {/* Hero Section */}
+      {/* Hero */}
       <section id="home">
         <Hero />
       </section>
-      
-      {/* Scroll Targets */}
+
+      {/* Events */}
       <section id="events">
-        <EventsComponent />
+        <EventsComponent
+          selectedEvent={selectedEvent}
+          setSelectedEvent={setSelectedEvent}
+        />
       </section>
 
+      {/* Timeline */}
       <section id="timeline">
         <JourneyTimeline />
       </section>
 
+      {/* Contact */}
       <section id="contact">
         <Contact />
       </section>

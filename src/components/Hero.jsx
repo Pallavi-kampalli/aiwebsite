@@ -7,7 +7,7 @@ function Hero() {
       id="home"
       className="
         relative
-        w-screen min-h-screen
+        w-full min-h-screen
         flex items-center
         pt-16
         overflow-hidden

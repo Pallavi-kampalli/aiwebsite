@@ -1,6 +1,9 @@
-import { useState } from "react";
+import {useState} from "react";
 
-function Navbar() {
+function Navbar({ hidden }) {
+  // Don't render the navbar if hidden is true
+  if (hidden) return null;
+
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
@@ -24,12 +27,10 @@ function Navbar() {
           bg-gradient-to-r from-[#28898e] to-[#34d6de]
           transition-all duration-300
           ${menuOpen ? "top-2 rotate-45" : "top-0"}`} />
-
         <span className={`absolute h-[3px] w-full rounded 
           bg-gradient-to-r from-[#28898e] to-[#34d6de]
           transition-all duration-300 top-2
           ${menuOpen ? "opacity-0" : "opacity-100"}`} />
-
         <span className={`absolute h-[3px] w-full rounded 
           bg-gradient-to-r from-[#00ffcc] to-[#00e5ff]
           transition-all duration-300

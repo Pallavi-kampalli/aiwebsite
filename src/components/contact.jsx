@@ -87,7 +87,7 @@ const Contact = () => {
       </div>
 
       {/* Container */}
-      <div className="relative z-10 max-w-6xl mx-auto">
+      <div className="relative bottom-15 z-10 max-w-6xl mx-auto">
         {/* Heading */}
         <header className="mb-14">
           <h1

@@ -3,7 +3,7 @@ import {
   Calendar,
   Clock,
   MapPin,
-  X,
+  Home,
   ArrowRight,
   Cpu,
   Terminal,
@@ -11,6 +11,7 @@ import {
   Brain,
   Network,
   Sparkles,
+  ArrowLeft,
 } from "lucide-react";
 
 /* -------------------- DATA -------------------- */
@@ -22,6 +23,7 @@ const eventsData = [
     icon: <Brain className="w-8 h-8 text-cyan-400" />,
     teaser:
       "Kickstarting AI Week with industry leaders discussing AGI and the future of work.",
+      poster: "/public/kritoathon.jpeg",
     description:
       "Join us for an electrifying opening ceremony discussing the transition from Narrow AI to AGI.",
     date: "9th Feb, 2026",
@@ -34,6 +36,7 @@ const eventsData = [
     title: "Robotics Workshop",
     icon: <Network className="w-8 h-8 text-emerald-400" />,
     teaser: "A beginner-friendly workshop on building machines.",
+    poster: "/public/kritoathon.jpeg",
     description: "Hands-on robotics workshop for beginners.",
     date: "9th Feb, 2026",
     time: "02:00 PM - 04:40 PM",
@@ -45,6 +48,7 @@ const eventsData = [
     title: "Startup Expo",
     icon: <Sparkles className="w-8 h-8 text-purple-400" />,
     teaser: "Explore AI-driven startups.",
+    poster: "/public/kritoathon.jpeg",
     description: "A showcase of innovative startups judged by experts.",
     date: "10th Feb, 2026",
     time: "10:00 AM - 05:00 PM",
@@ -56,6 +60,7 @@ const eventsData = [
     title: "ML Challenge + Data Creation",
     icon: <Terminal className="w-8 h-8 text-rose-400" />,
     teaser: "Train and compete with ML models.",
+    poster: "/public/kritoathon.jpeg",
     description: "Develop models using provided datasets and compete.",
     date: "11th Feb, 2026",
     time: "10:00 AM - 05:00 PM",
@@ -67,6 +72,7 @@ const eventsData = [
     title: "Vibe Coding Hackathon",
     icon: <Cpu className="w-8 h-8 text-amber-400" />,
     teaser: "AI-powered coding without writing code.",
+    poster: "/public/kritoathon.jpeg",
     description: "Build applications using modern AI tools.",
     date: "12th Feb, 2026",
     time: "10:00 AM - 05:00 PM",
@@ -78,6 +84,7 @@ const eventsData = [
     title: "Agentic AI + Deployment Workshop",
     icon: <Zap className="w-8 h-8 text-orange-400" />,
     teaser: "From agents to deployed apps.",
+    poster: "/public/kritoathon.jpeg",
     description: "Build, deploy, and scale agentic AI applications.",
     date: "13th Feb, 2026",
     time: "10:00 AM - 01:00 PM",
@@ -96,88 +103,164 @@ const EventModal = ({ event, onClose }) => {
       setShow(true);
       document.body.style.overflow = "hidden";
     } else {
-      setShow(false);
       document.body.style.overflow = "auto";
     }
+    return () => (document.body.style.overflow = "auto");
   }, [event]);
 
   if (!event) return null;
 
   return (
     <div
-      className={`fixed inset-0 z-50 flex items-center justify-center p-4 transition-opacity duration-500 ${
+      className={`fixed inset-0 z-50 transition-opacity duration-200 ${
         show ? "opacity-100" : "opacity-0"
       }`}
-      onClick={onClose}
     >
-      {/* 🌫️ GLASS BACKDROP */}
+      {/* Backdrop */}
       <div
-        className={`absolute inset-0 backdrop-blur-xl transition-all duration-700 ${
-          show ? "opacity-100 scale-100" : "opacity-0 scale-[1.02]"
-        }`}
-        style={{
-          background: `
-            radial-gradient(
-              1200px at 20% 10%,
-              rgba(34, 211, 238, 0.14),
-              transparent 55%
-            ),
-            radial-gradient(
-              1000px at 80% 85%,
-              rgba(16, 185, 129, 0.16),
-              transparent 60%
-            ),
-            rgba(0, 0, 0, 0.55)
-          `,
-        }}
+        className="absolute inset-0 bg-black/70 backdrop-blur-xl"
+        onClick={onClose}
       />
 
-      {/* MODAL CONTENT */}
+      {/* Modal Container */}
       <div
-        onClick={(e) => e.stopPropagation()}
-        className={`glass-panel relative z-10 w-full max-w-2xl rounded-2xl overflow-hidden transition-all duration-500 ${
-          show ? "scale-100 translate-y-0" : "scale-95 translate-y-8"
-        }`}
+       className="absolute inset-x-0 top-1 bottom-0 bg-[#050505] text-white flex flex-col"
       >
-        {/* Header */}
-        <div className="flex items-start justify-between p-6 border-b border-white/10">
-          <div className="flex items-center gap-4">
-            <div className="p-3 bg-white/5 rounded-lg border border-white/10">
-              {event.icon}
+
+        {/* Universal Top Bar */}
+          <div className="sticky top-0 z-50 h-16 px-6
+                          flex items-center justify-between
+                          bg-[#050505]/95 backdrop-blur
+                          border-b border-white/10">
+
+            {/* Back */}
+            <button
+              onClick={onClose}
+              aria-label="Go to home"
+              className="
+                p-2 rounded-lg
+                text-teal-700
+                hover:text-teal-600
+                hover:bg-white/5
+                transition
+              "
+            >
+              <ArrowLeft className="w-5 h-5" /> Back
+            </button>
+
+            {/* Center Logo */}
+            <div className="absolute left-1/2 -translate-x-1/2">
+              {/* Logo */}
+              <div className="text-[1.4rem] font-bold cursor-pointer 
+                bg-gradient-to-r from-[#206a6e] to-[#28a3a9] 
+                bg-clip-text text-transparent">
+              AI WEEK
+              </div>
             </div>
-            <h2 className="text-2xl md:text-3xl font-bold text-white">
-              {event.title}
-            </h2>
+
+            {/* Right Spacer (keeps center truly centered) */}
+            <div className="w-16" />
           </div>
-          <button
-            onClick={onClose}
-            className="text-gray-400 hover:text-white transition"
-          >
-            <X size={26} />
-          </button>
+
+
+        {/* CONTENT */}
+        <div className="flex-1 overflow-hidden">
+          {/* Desktop Layout */}
+          <div className="hidden md:grid grid-rows-[auto_1fr] h-full">
+            {/* Row 1 */}
+            <div className="grid grid-cols-2 gap-6 p-8 border-b border-white/10">
+              {/* Poster */}
+              <div className="rounded-2xl bg-gradient-to-br from-cyan-900/40 to-emerald-900/30 flex items-center justify-center text-gray-400 text-sm">
+                <img
+                  src={event.poster}
+                  alt={event.title}
+                  className="w-full h-full object-contain"
+                />
+              </div>
+
+
+              {/* Details */}
+              <div>
+                <h2 className="text-3xl font-bold mb-6">{event.title}</h2>
+                <div className="grid grid-cols-2 gap-4 text-sm text-gray-300">
+                  <Info icon={<Calendar />} label="Date" value={event.date} />
+                  <Info icon={<Clock />} label="Time" value={event.time} />
+                  <Info icon={<MapPin />} label="Venue" value={event.venue} />
+                  <Info icon={<Cpu />} label="Capacity" value={event.capacity} />
+
+                <section>
+                <h3 className="text-lg font-semibold text-cyan-400 mb-2">
+                  Event Description
+                </h3>
+                <p className="text-gray-300 leading-relaxed">
+                  {event.description}
+                </p>
+                </section>
+
+              <section>
+                <h3 className="text-lg font-semibold text-cyan-400 mb-2">
+                  Speakers / POCs
+                </h3>
+                <p className="text-gray-400">
+                  Speaker and POC information goes here.
+                </p>
+              </section>
+                </div>
+              </div>
+            </div>
+
+            
+          </div>
+
+          {/* Mobile Layout */}
+        <div className="md:hidden w-full h-[calc(100dvh-8rem)] overflow-y-auto pb-32">
+  {/* Poster */}
+  <div className="w-full overflow-hidden">
+    <img
+      src={event.poster}
+      alt={event.title}
+      className="w-full h-auto object-contain"
+    />
+  </div>
+
+  {/* Content */}
+  <div className="p-6 space-y-6">
+    <h2 className="text-2xl font-bold">{event.title}</h2>
+
+    <div className="grid grid-cols-1 gap-4 text-sm text-gray-300">
+      <Info icon={<Calendar />} label="Date" value={event.date} />
+      <Info icon={<Clock />} label="Time" value={event.time} />
+      <Info icon={<MapPin />} label="Venue" value={event.venue} />
+      <Info icon={<Cpu />} label="Capacity" value={event.capacity} />
+    </div>
+
+    <section>
+      <h3 className="text-lg font-semibold text-cyan-400 mb-2">
+        Event Description
+      </h3>
+      <p className="text-gray-300 leading-relaxed">
+        {event.description}
+      </p>
+    </section>
+
+    <section>
+      <h3 className="text-lg font-semibold text-cyan-400 mb-2">
+        Speakers / POCs
+      </h3>
+      <p className="text-gray-400">
+        Speaker and POC information goes here.
+      </p>
+    </section>
+  </div>
+</div>
+
         </div>
 
-        {/* Body */}
-        <div className="p-6 space-y-6 max-h-[75vh] overflow-y-auto">
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 bg-black/25 p-4 rounded-xl border border-white/10 text-gray-400 text-sm">
-            <Info icon={<Calendar />} label="Date" value={event.date} />
-            <Info icon={<Clock />} label="Time" value={event.time} />
-            <Info icon={<MapPin />} label="Venue" value={event.venue} />
-            <Info icon={<Cpu />} label="Capacity" value={event.capacity} />
-          </div>
-
-          <div>
-            <h3 className="text-lg font-semibold text-cyan-400 mb-2">
-              Event Details
-            </h3>
-            <p className="text-gray-400 text-sm leading-relaxed">
-              {event.description}
-            </p>
-          </div>
-
+        {/* Sticky Register Bar */}
+        <div className="sticky bottom-0 w-full p-4 bg-[#050505]/90 backdrop-blur border-t border-white/10">
           <button
             onClick={() => alert(`Registered for ${event.title}`)}
-            className="w-full py-4 rounded-xl font-bold text-white bg-gradient-to-r from-cyan-800 via-emerald-700 to-cyan-800 hover:opacity-90 transition active:scale-95"
+            className="w-full py-4 rounded-xl font-bold text-white bg-gradient-to-r from-cyan-700 to-teal-800 hover:opacity-90 transition"
           >
             Register Now
           </button>
@@ -192,15 +275,16 @@ const Info = ({ icon, label, value }) => (
     <div className="text-emerald-500 mt-0.5">{icon}</div>
     <div>
       <p className="text-xs uppercase text-gray-500">{label}</p>
-      {value}
+      <p className="text-gray-300">{value}</p> {/* ✅ wrapped */}
     </div>
   </div>
 );
 
+
 /* -------------------- CARD -------------------- */
 
 const EventCard = ({ event, onClick }) => (
-  <div className="relative group h-full cursor-pointer" onClick={onClick}>
+  <div className="relative group h-full">
     <div
       className="absolute inset-0 rounded-2xl blur-2xl opacity-20 group-hover:opacity-100 transition-opacity duration-700"
       style={{
@@ -220,26 +304,30 @@ const EventCard = ({ event, onClick }) => (
         </p>
       </div>
 
-      <span className="mt-6 flex items-center text-sm font-semibold text-emerald-500">
-        View more <ArrowRight className="ml-2 w-4 h-4" />
-      </span>
+      <button
+  onClick={onClick}
+  className="mt-6 inline-flex items-center text-sm font-semibold text-emerald-400
+             hover:text-emerald-300 transition-all duration-300
+             group-hover:translate-x-1"
+>
+  View more to register<ArrowRight className="ml-2 w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
+</button>
     </div>
   </div>
 );
 
 /* -------------------- MAIN -------------------- */
 
-const EventsComponent = () => {
-  const [selectedEvent, setSelectedEvent] = useState(null);
-
+const EventsComponent = ({ selectedEvent, setSelectedEvent }) => {
   return (
-    <section className="min-h-screen bg-[#050505] py-16 px-4 md:px-8">
+    <section className="min-h-screen bg-[#050505] py-16 px-4 md:px-8 overflow-x-hidden">
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {eventsData.map((event, index) => (
           <div
             key={event.id}
             data-aos="fade-up"
             data-aos-delay={(index % 3) * 120}
+            className="h-full"
           >
             <EventCard
               event={event}
@@ -256,5 +344,6 @@ const EventsComponent = () => {
     </section>
   );
 };
+
 
 export default EventsComponent;

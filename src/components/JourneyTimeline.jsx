@@ -2,10 +2,6 @@ const EVENTS = [
   {
     id: "0",
     title: "Inauguration",
-    description:
-      "The official grand opening of AI WEEK 2026. Featuring visionary keynote speakers and unveiling the week's core themes.",
-    speaker: "AI Week Committee",
-    speakerRole: "Organizing Team",
     startTime: "09:30 AM",
     endTime: "01:30 PM",
     date: "Feb 9, 2026",
@@ -15,10 +11,6 @@ const EVENTS = [
   {
     id: "1",
     title: "AI Tools Workshop",
-    description:
-      "A deep dive into the next generation of LLMs and multimodal architectures reshaping industries.",
-    speaker: "Dr. Elena Vance",
-    speakerRole: "Chief Scientist, NeuralCore",
     startTime: "10:30 AM",
     endTime: "01:00 PM",
     date: "Feb 9, 2026",
@@ -28,10 +20,6 @@ const EVENTS = [
   {
     id: "2",
     title: "Robotics Workshop",
-    description:
-      "Learn to integrate advanced reasoning and multimodal capabilities into applications.",
-    speaker: "Marcus Chen",
-    speakerRole: "Senior DevRel, Google Cloud",
     startTime: "02:00 PM",
     endTime: "04:40 PM",
     date: "Feb 9, 2026",
@@ -41,10 +29,6 @@ const EVENTS = [
   {
     id: "3",
     title: "Startup Expo",
-    description:
-      "Teams pitch solutions to real-world AI bias and governance challenges.",
-    speaker: "Competition Committee",
-    speakerRole: "Governance Experts",
     startTime: "10:00 AM",
     endTime: "05:00 PM",
     date: "Feb 10, 2026",
@@ -53,10 +37,7 @@ const EVENTS = [
   },
   {
     id: "4",
-    title: "ML Challenge + Data Creation",
-    description: "A two-day contest from Feb 10th to 11th.",
-    speaker: "Prof. Julian Thorne",
-    speakerRole: "Director, AI Lab Stanford",
+    title: "ML Challenge + Data Creation", 
     startTime: "10:00 AM",
     endTime: "05:00 PM",
     date: "Feb 10, 2026",
@@ -66,10 +47,6 @@ const EVENTS = [
   {
     id: "5",
     title: "Vibe Coding Hackathon",
-    description:
-      "A 24-hour development marathon focused on robotics and edge computing.",
-    speaker: "Hackathon Lead",
-    speakerRole: "Engineering Team",
     startTime: "10:00 AM",
     endTime: "05:00 PM",
     date: "Feb 12, 2026",
@@ -79,9 +56,7 @@ const EVENTS = [
   {
     id: "6",
     title: "Agentic-AI & Deployment Workshop",
-    description: "Build autonomous agents capable of complex task planning.",
-    speaker: "Hackathon Lead",
-    speakerRole: "AI Week Core Team",
+    
     startTime: "09:00 AM",
     endTime: "01:00 PM",
     date: "Feb 13, 2026",
@@ -91,10 +66,7 @@ const EVENTS = [
   {
     id: "7",
     title: "Closing Ceremony",
-    description:
-      "Awards, reflections, and a keynote on the future of intelligence.",
-    speaker: "AI Week Committee",
-    speakerRole: "Organizing Team",
+    
     startTime: "02:00 PM",
     endTime: "05:00 PM",
     date: "Feb 13, 2026",
@@ -106,7 +78,7 @@ const EVENTS = [
 export default function JourneyTimeline() {
   return (
   <section className="
-  relative overflow-hidden
+  relative  overflow-hidden
   text-white py-20 px-4
   bg-[linear-gradient(180deg,#040909,#030707)]
 ">
@@ -164,18 +136,8 @@ export default function JourneyTimeline() {
                     <h3 className="text-xl font-bold mt-2 text-teal-500">
                       {event.title}
                     </h3>
-
-                    <p className="text-gray-400 mt-3">
-                      {event.description}
-                    </p>
-
                     <div className="mt-4 text-sm">
-                      <p className="font-semibold text-white">
-                        {event.speaker}
-                      </p>
-                      <p className="text-gray-500">
-                        {event.speakerRole}
-                      </p>
+                      
                       <p className="text-gray-500 mt-1">
                         📍 {event.location}
                       </p>
