@@ -175,17 +175,17 @@ const Contact = () => {
                 {
                   name: "Dr. Sagar Yeruva",
                   role: "Head of Department",
-                  img: "/public/sagarsir.jpeg",
+                  img: "/sagarsir.jpeg",
                 },
                 {
                   name: "Dr. A. Kousar Nikhath",
                   role: "Faculty coordinator",
-                  img: "/public/kousarmaam.jpeg",
+                  img: "/kousarmaam.jpeg",
                 },
                 {
                   name: "Mr. Bhupesh Deka",
                   role: "Faculty Coordinator",
-                  img: "/public/bhupeshsir.jpeg",
+                  img: "/bhupeshsir.jpeg",
                 },
               ].map((faculty) => (
                 <div
