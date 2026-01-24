@@ -24,11 +24,11 @@ const eventsData = [
       "Kickstarting AI Week with industry leaders discussing AGI and the future of work.",
     poster: "/kritoathon.jpeg",
     description:
-      "Join us for an electrifying opening ceremony discussing the transition from Narrow AI to AGI.",
+      "This workshop is all about discovering the power of AI tools that are transforming industries today. Participants will get hands-on exposure to practical applications—whether it’s automating tasks, enhancing creativity, or solving real-world problems. It’s designed to be interactive, approachable, and empowering, so even beginners can walk away with confidence in using AI tools for their own projects.",
     date: "9th Feb, 2026",
     time: "10:30 AM - 01:00 PM",
     venue: "Classroom",
-    capacity: "120 Seats",
+    Type: "Individual",
   },
   {
     id: 2,
@@ -36,11 +36,11 @@ const eventsData = [
     icon: <Network className="w-8 h-8 text-emerald-400" />,
     teaser: "A beginner-friendly workshop on building machines.",
     poster: "/kritoathon.jpeg",
-    description: "Hands-on robotics workshop for beginners.",
+    description: "Step into the fascinating world where hardware meets intelligence! The robotics workshop will give participants a chance to explore how machines can be programmed to think, move, and act. From basic concepts to exciting demonstrations, this session will spark curiosity about how robotics is shaping the future. It’s perfect for anyone who loves to see ideas come alive in motion.  ",
     date: "9th Feb, 2026",
     time: "02:00 PM - 04:40 PM",
     venue: "Lab Complex B",
-    capacity: "50 Seats",
+    Type: "Individual",
   },
   {
     id: 3,
@@ -48,11 +48,11 @@ const eventsData = [
     icon: <Sparkles className="w-8 h-8 text-purple-400" />,
     teaser: "Explore AI-driven startups.",
     poster: "/kritoathon.jpeg",
-    description: "A showcase of innovative startups judged by experts.",
+    description: "The Startup Expo is a celebration of ideas, ambition, and entrepreneurship. Students and innovators will showcase their projects, products, and visions for the future. It’s a chance to network, exchange feedback, and get inspired by the creativity around. Whether you’re a budding entrepreneur or simply curious, this expo will leave you motivated to dream bigger.",
     date: "10th Feb, 2026",
     time: "10:00 AM - 05:00 PM",
     venue: "Atrium Hall",
-    capacity: "Open for all",
+    Type: "Team size()",
   },
   {
     id: 4,
@@ -60,11 +60,11 @@ const eventsData = [
     icon: <Terminal className="w-8 h-8 text-rose-400" />,
     teaser: "Train and compete with ML models.",
     poster: "/kritoathon.jpeg",
-    description: "Develop models using provided datasets and compete.",
+    description: "This challenge is where creativity meets problem-solving. Participants will dive into machine learning tasks, experimenting with synthetic data to build smarter models. It’s not just a competition—it’s a chance to learn, collaborate, and push the boundaries of what’s possible with data. The energy of teamwork and innovation will make this event a highlight.",
     date: "11th Feb, 2026",
     time: "10:00 AM - 05:00 PM",
     venue: "Innovation Hub",
-    capacity: "20 Teams",
+    Type: "Team size()",
   },
   {
     id: 5,
@@ -72,11 +72,11 @@ const eventsData = [
     icon: <Cpu className="w-8 h-8 text-amber-400" />,
     teaser: "AI-powered coding without writing code.",
     poster: "/kritoathon.jpeg",
-    description: "Build applications using modern AI tools.",
+    description: "The hackathon is where coding meets adrenaline. Across two rounds, participants will tackle real-world problems, brainstorm solutions, and bring their ideas to life through code. It’s not just about winning—it’s about learning, collaborating, and experiencing the thrill of building something impactful under time pressure. Expect energy, teamwork, and plenty of “aha!” moments.  ",
     date: "12th Feb, 2026",
     time: "10:00 AM - 05:00 PM",
     venue: "Seminar Hall 1",
-    capacity: "100 Seats",
+    Type: "Individual",
   },
   {
     id: 6,
@@ -84,11 +84,11 @@ const eventsData = [
     icon: <Zap className="w-8 h-8 text-orange-400" />,
     teaser: "From agents to deployed apps.",
     poster: "/kritoathon.jpeg",
-    description: "Build, deploy, and scale agentic AI applications.",
+    description: "This workshop focuses on the cutting edge of AI—agentic systems and deployment strategies. Participants will learn how to move beyond theory, taking applications from development to real-world use. It’s a practical, future-focused session that equips attendees with skills to make their AI projects truly impactful.",
     date: "13th Feb, 2026",
     time: "10:00 AM - 01:00 PM",
     venue: "Classroom",
-    capacity: "120 Seats",
+    Type: "Individual",
   },
 ];
 
@@ -150,19 +150,31 @@ const EventModal = ({ event, onClose }) => {
             />
           </div>
 
-          {/* Content */}
-          <div className="p-6 space-y-6 text-center pb-32">
-            <h2 className="text-2xl font-bold">{event.title}</h2>
+          <div className="h-10 md:h-16" />
 
-            <div className="grid grid-cols-1 gap-4 text-sm text-gray-300 place-items-center">
+          {/* Content */}
+          <div className="max-w-6xl mx-auto px-6 md:px-10 space-y-14">
+          <h2 className="text-2xl font-bold text-center gap-y-20 text-[1.4rem] font-bold cursor-pointer 
+          bg-gradient-to-r from-[#206a6e] to-[#28a3a9] 
+          bg-clip-text text-transparent">EVENT DETAILS</h2>
+            {/* INFO GRID */}
+            <div className="
+              grid grid-cols-1 sm:grid-cols-2
+              gap-x-20 gap-y-10
+              justify-items-center
+              text-center
+            ">
               <Info icon={<Calendar />} label="Date" value={event.date} />
               <Info icon={<Clock />} label="Time" value={event.time} />
               <Info icon={<MapPin />} label="Venue" value={event.venue} />
-              <Info icon={<Cpu />} label="Capacity" value={event.capacity} />
+              <Info icon={<Cpu />} label="Participation Type" value={event.Type} />
             </div>
 
-            <section>
-              <h3 className="text-lg font-semibold text-cyan-400 mb-2">
+            {/* DESCRIPTION */}
+            <section className="max-w-4xl">
+              <h3 className="text-lg text-[1.4rem] font-bold cursor-pointer 
+                bg-gradient-to-r from-[#206a6e] to-[#28a3a9] 
+                bg-clip-text text-transparent mb-3">
                 Event Description
               </h3>
               <p className="text-gray-300 leading-relaxed">
@@ -170,15 +182,22 @@ const EventModal = ({ event, onClose }) => {
               </p>
             </section>
 
-            <section>
-              <h3 className="text-lg font-semibold text-cyan-400 mb-2">
+            {/* SPEAKERS */}
+            <section className="max-w-4xl">
+              <h3 className="text-lg text-[1.4rem] font-bold cursor-pointer 
+                bg-gradient-to-r from-[#206a6e] to-[#28a3a9] 
+                bg-clip-text text-transparent mb-3">
                 Speakers / POCs
               </h3>
               <p className="text-gray-400">
                 Speaker and POC information goes here.
               </p>
             </section>
+
+            <div className="h-8 md:h-12" />
+
           </div>
+
         </div>
 
         {/* Sticky Register Bar */}
@@ -192,13 +211,34 @@ const EventModal = ({ event, onClose }) => {
   );
 };
 
-const Info = ({ icon, label, value }) => (
-  <div className="flex flex-col items-center gap-1 text-center">
-    <div className="text-emerald-500">{icon}</div>
-    <p className="text-xs uppercase text-gray-500">{label}</p>
-    <p className="text-gray-300">{value}</p>
-  </div>
-);
+const Info = ({ icon, label, value }) => {
+  return (
+    <div
+      className="
+        flex flex-col items-center text-center
+        sm:flex-row sm:items-start sm:text-left
+        gap-4
+      "
+    >
+      {/* Icon */}
+      <div className="text-teal-500 shrink-0">
+        {icon}
+      </div>
+
+      {/* Text */}
+      <div>
+        <p className="text-xs uppercase tracking-wide text-gray-500">
+          {label}
+        </p>
+        <p className="text-gray-200 font-medium">
+          {value}
+        </p>
+      </div>
+    </div>
+  );
+};
+
+
 
 /* -------------------- CARD -------------------- */
 
