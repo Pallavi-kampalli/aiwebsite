@@ -189,12 +189,27 @@ export default function JourneyTimeline() {
                   isLeft ? "md:justify-start" : "md:justify-end"
                 }`}
               >
-                <span className="md:hidden absolute left-[10px] top-8 h-3 w-3 rounded-full bg-teal-700 shadow-[0_0_10px_rgba(34,211,238,0.9)]" />
+                {/* MOBILE DOT 
+                  - Changed bg-teal-700 to bg-cyan-400
+                  - Added ring-2 ring-cyan-100/50 for a hot core
+                  - Increased shadow blur and opacity
+                  - Added z-10 to sit on top of the line
+                */}
+                <span 
+                  className="md:hidden absolute left-[10px] top-8 h-3 w-3 rounded-full 
+                  bg-cyan-400 ring-2 ring-cyan-100/50 shadow-[0_0_16px_rgba(34,211,238,1)] z-10" 
+                />
 
                 <div className="md:w-1/2 w-full pl-10 pr-4 md:px-4 relative">
+                  {/* DESKTOP DOT 
+                    - Changed bg-teal-500 to bg-cyan-400
+                    - Added ring-2 ring-cyan-100/50
+                    - Increased shadow blur and opacity
+                    - Added z-10
+                  */}
                   <span
                     className={`hidden md:block absolute top-8 h-4 w-4 rounded-full
-                      bg-teal-500 shadow-[0_0_12px_rgba(34,211,238,0.9)]
+                      bg-cyan-400 ring-2 ring-cyan-100/50 shadow-[0_0_20px_rgba(34,211,238,1)] z-10
                       ${isLeft ? "-right-2" : "-left-2"}`}
                   />
 
