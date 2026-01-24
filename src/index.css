@@ -1,13 +1,15 @@
 @import "tailwindcss";
 
-/* You can add your own custom styles below this line if needed */
+/* FORCE Audiowide font (no Tailwind involved) */
+.font-audiowide-force {
+  font-family: "Audiowide", system-ui, sans-serif !important;
+}
 
-/* Custom utilities for the animated gradient button */
+/* Utilities */
 @layer utilities {
   .bg-size-200 {
     background-size: 200% 200%;
   }
-  
   .animate-gradient-x {
     animation: gradient-x 3s ease infinite;
   }
@@ -16,69 +18,18 @@
 html,
 body {
   overflow-x: hidden;
-}
-
-/* Keyframes for the gradient animation */
-@keyframes gradient-x {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
-}
-
-@keyframes slowGlow {
-  0% {
-    background-position: 0% 0%;
-  }
-  50% {
-    background-position: 100% 100%;
-  }
-  100% {
-    background-position: 0% 0%;
-  }
-}
-@keyframes radialDrift {
-  0% {
-    background-position: 20% 30%, 80% 70%;
-  }
-  50% {
-    background-position: 70% 40%, 30% 60%;
-  }
-  100% {
-    background-position: 20% 30%, 80% 70%;
-  }
-}
-
-/* Custom Scrollbar to match the Dark/Green theme */
-::-webkit-scrollbar {
-  width: 10px;
-}
-
-::-webkit-scrollbar-track {
-  background: #09090b; /* Zinc-950 */
-}
-
-::-webkit-scrollbar-thumb {
-  background: #1f2937; /* Gray-800 */
-  border-radius: 5px;
-  border: 2px solid #09090b;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: #22c55e; /* Green-500 */
-}
-
-/* Global body styles to ensure full dark mode */
-
-html {
   scroll-behavior: smooth;
 }
 
+@keyframes gradient-x {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
 section {
-  scroll-margin-top: 60px; /* navbar height */
+  scroll-margin-top: 60px;
+}
+.scale-y-100 {
+  transform: scaleY(1);
 }

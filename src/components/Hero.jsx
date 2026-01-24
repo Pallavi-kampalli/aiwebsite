@@ -14,10 +14,8 @@ function Hero() {
         bg-[linear-gradient(135deg,#020909,#031818,#042323)]
       "
     >
-      {/* Scroll-reactive neural background */}
       <Background3D />
 
-      {/* Dark soft overlays */}
       <div
         className="
           absolute inset-0 pointer-events-none
@@ -26,11 +24,14 @@ function Hero() {
         "
       />
 
-      {/* Content */}
       <div className="relative z-10 max-w-[900px] ml-6 md:ml-24 mr-6">
+        {/* HERO TITLE – same design, forced font */}
         <h1
           className="
-            text-white font-black leading-[1.1]
+            font-audiowide-force
+            text-white
+            font-black
+            leading-[1.1]
             text-[2.2rem] md:text-[clamp(2.8rem,5vw,4.2rem)]
           "
         >
@@ -38,7 +39,8 @@ function Hero() {
           <span className="block md:inline">THE NEXT</span>
           <span
             className="
-              block bg-gradient-to-r from-[#2bbec2] to-[#34d6de]
+              block
+              bg-gradient-to-r from-[#2bbec2] to-[#34d6de]
               bg-clip-text text-transparent
             "
           >
