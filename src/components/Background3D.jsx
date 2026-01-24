@@ -9,7 +9,7 @@ function StarField({ scrollProgressRef }) {
 
   const COUNT = 420;
 
-  const { basePositions, directions } = useMemo(() => {
+  const { basePositions, currentPositions, directions } = useMemo(() => {
     const basePositions = new Float32Array(COUNT * 3);
     const directions = new Float32Array(COUNT * 3);
 
@@ -24,24 +24,22 @@ function StarField({ scrollProgressRef }) {
       const z = (Math.random() - 0.5) * 5;
 
       basePositions.set([x, y, z], i * 3);
-
-      // Radial dispersion vectors
-      directions.set(
-        [x * 2.2, y * 2.2, z * 1.4],
-        i * 3
-      );
+      directions.set([x * 2.2, y * 2.2, z * 1.4], i * 3);
     }
 
-    return { basePositions, directions };
+    const currentPositions = new Float32Array(basePositions);
+
+    return { basePositions, currentPositions, directions };
   }, []);
 
   useFrame(() => {
-    const t = scrollProgressRef.current; // 0 → 1 (hero-relative)
+    if (!pointsRef.current) return;
 
+    const t = scrollProgressRef.current;
     const posAttr = pointsRef.current.geometry.attributes.position;
     const material = pointsRef.current.material;
 
-    // STAR POSITIONS (reversible)
+    // Position animation (reversible)
     for (let i = 0; i < COUNT; i++) {
       const i3 = i * 3;
       posAttr.array[i3]     = basePositions[i3]     + directions[i3]     * t;
@@ -50,14 +48,13 @@ function StarField({ scrollProgressRef }) {
     }
     posAttr.needsUpdate = true;
 
-    /* ---------------- KEY IDEA ----------------
-       Rapid reveal using nonlinear ramp
-       invisible → strong → stable
-    */
-    const reveal = Math.min(t * 8, 1); // rapid ramp-up in first 12–15% scroll
+    /* ---------- BALANCED INTENSITY ---------- */
 
-    material.opacity = reveal * 0.9;          // visibility
-    material.size = 0.012 + reveal * 0.03;    // perceived brightness via size
+    // Smooth ramp: visible early, controlled later
+    const reveal = Math.min(Math.pow(t, 0.75) * 2.2, 1);
+
+    material.opacity = reveal * 0.6;          // visible, not overpowering
+    material.size    = 0.010 + reveal * 0.018; // ambient scale, no flares
   });
 
   return (
@@ -65,14 +62,14 @@ function StarField({ scrollProgressRef }) {
       <bufferGeometry>
         <bufferAttribute
           attach="attributes-position"
-          array={basePositions}
-          count={basePositions.length / 3}
+          array={currentPositions}
+          count={currentPositions.length / 3}
           itemSize={3}
         />
       </bufferGeometry>
 
       <pointsMaterial
-        color="#9cf6f6"
+        color="#7fdfe0"
         size={0.01}
         opacity={0}
         transparent
@@ -95,9 +92,8 @@ export default function Background3D() {
 
     const onScroll = () => {
       const rect = hero.getBoundingClientRect();
-      const total = rect.height;
+      const total = rect.height || 1;
 
-      // Hero-relative progress: 0 → 1 → 0
       const t = Math.min(Math.max(-rect.top / total, 0), 1);
       progressRef.current = t;
     };
@@ -111,7 +107,7 @@ export default function Background3D() {
   return (
     <div className="absolute inset-0 z-0 pointer-events-none">
       <Canvas camera={{ position: [0, 0, 5], fov: 52 }}>
-        <ambientLight intensity={0.3} />
+        <ambientLight intensity={0.25} />
         <StarField scrollProgressRef={progressRef} />
       </Canvas>
     </div>

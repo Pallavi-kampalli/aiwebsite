@@ -172,7 +172,7 @@ const EventModal = ({ event, onClose }) => {
 
             <section>
               <h3 className="text-lg font-semibold text-cyan-400 mb-2">
-                Speakers / POCs
+                Speakers / POCS
               </h3>
               <p className="text-gray-400">
                 Speaker and POC information goes here.
@@ -239,7 +239,12 @@ const EventsComponent = ({ selectedEvent, setSelectedEvent }) => {
     <section className="bg-[#050505] pt-16 pb-6 px-4 md:px-8 overflow-hidden">
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {eventsData.map((event, index) => (
-          <div key={event.id} data-aos="fade-up" className="h-full">
+          <div
+            key={event.id}
+            data-aos="fade-up"
+            data-aos-once="false" /* CHANGE: Ensures animation runs every time you scroll to it */
+            className="h-full"
+          >
             <EventCard
               event={event}
               onClick={() => setSelectedEvent(event)}
