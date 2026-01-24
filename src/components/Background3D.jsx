@@ -9,7 +9,7 @@ function StarField({ scrollProgressRef }) {
 
   const COUNT = 420;
 
-  const { basePositions, directions } = useMemo(() => {
+  const { basePositions, currentPositions, directions } = useMemo(() => {
     const basePositions = new Float32Array(COUNT * 3);
     const directions = new Float32Array(COUNT * 3);
 
@@ -32,7 +32,11 @@ function StarField({ scrollProgressRef }) {
       );
     }
 
-    return { basePositions, directions };
+    // CLONE: We need a separate array for the buffer attribute to mutate.
+    // basePositions must remain static to serve as the reference point.
+    const currentPositions = new Float32Array(basePositions);
+
+    return { basePositions, currentPositions, directions };
   }, []);
 
   useFrame(() => {
@@ -44,6 +48,8 @@ function StarField({ scrollProgressRef }) {
     // STAR POSITIONS (reversible)
     for (let i = 0; i < COUNT; i++) {
       const i3 = i * 3;
+      // Read from the IMMUTABLE basePositions
+      // Write to the MUTABLE posAttr.array (which is currentPositions)
       posAttr.array[i3]     = basePositions[i3]     + directions[i3]     * t;
       posAttr.array[i3 + 1] = basePositions[i3 + 1] + directions[i3 + 1] * t;
       posAttr.array[i3 + 2] = basePositions[i3 + 2] + directions[i3 + 2] * t;
@@ -65,8 +71,8 @@ function StarField({ scrollProgressRef }) {
       <bufferGeometry>
         <bufferAttribute
           attach="attributes-position"
-          array={basePositions}
-          count={basePositions.length / 3}
+          array={currentPositions} // Use the CLONED array here
+          count={currentPositions.length / 3}
           itemSize={3}
         />
       </bufferGeometry>
