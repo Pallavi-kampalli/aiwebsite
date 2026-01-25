@@ -9,6 +9,7 @@ const EVENTS = [
     date: "Feb 9, 2026",
     location: "Main Auditorium",
     category: "Ceremony",
+    description: "AI Week kicks off with an inspiring inauguration ceremony that sets the tone for five days of innovation and collaboration. It’s not just about speeches—it’s about bringing together curious minds, passionate learners, and visionary leaders under one roof. The atmosphere will be filled with excitement as students, faculty, and guests unite to celebrate the beginning of a journey into the world of artificial intelligence.",
   },
   {
     id: "1",
@@ -72,6 +73,7 @@ const EVENTS = [
     date: "Feb 13, 2026",
     location: "Main Auditorium",
     category: "Ceremony",
+    description: "AI Week concludes with a heartfelt closing ceremony that celebrates the journey of learning, collaboration, and innovation. Certificates will be distributed to recognize participation and achievement, but more importantly, it’s a moment to reflect on the experiences shared and the friendships built. The week may end here, but the inspiration will carry forward",
   },
 ];
 
@@ -79,6 +81,10 @@ export default function JourneyTimeline() {
   const sectionRef = useRef(null);
   const desktopLineRef = useRef(null);
   const mobileLineRef = useRef(null);
+  
+  // Refs to store dot elements for direct DOM manipulation
+  const desktopDotsRef = useRef([]);
+  const mobileDotsRef = useRef([]);
 
   useEffect(() => {
     const section = sectionRef.current;
@@ -88,20 +94,57 @@ export default function JourneyTimeline() {
       const rect = section.getBoundingClientRect();
       const scrollable = rect.height - window.innerHeight;
 
+      // Calculate progress (0 to 1)
       const progress = Math.min(
         Math.max(-rect.top / scrollable, 0),
         1
       );
 
+      // Update Line Height
       if (desktopLineRef.current) {
         desktopLineRef.current.style.transform = `scaleY(${progress})`;
       }
       if (mobileLineRef.current) {
         mobileLineRef.current.style.transform = `scaleY(${progress})`;
       }
+
+      // --- LOGIC TO GLOW DOTS ---
+      // Get the active line element (desktop or mobile)
+      const lineEl = desktopLineRef.current || mobileLineRef.current;
+      if (!lineEl) return;
+
+      // Calculate the exact visual position of the line's tip.
+      // We use offsetHeight (unscaled full height) * progress + top position.
+      const lineRect = lineEl.getBoundingClientRect();
+      const lineTipY = lineRect.top + (lineEl.offsetHeight * progress);
+
+      // Helper to toggle classes
+      const updateDot = (dot) => {
+        if (!dot) return;
+        
+        // Get dot's position relative to viewport
+        const dotTop = dot.getBoundingClientRect().top;
+
+        // Activate if the line tip has reached the dot (with a 10px buffer for "instant" feel)
+        if (lineTipY >= dotTop - 10) {
+          // ACTIVE STATE: Bright Cyan & Glow
+          dot.classList.remove("bg-teal-900", "border-teal-700");
+          dot.classList.add("bg-cyan-400", "shadow-[0_0_15px_rgba(34,211,238,0.8)]", "scale-125");
+        } else {
+          // INACTIVE STATE: Dark Teal & Dim
+          dot.classList.add("bg-teal-900", "border-teal-700");
+          dot.classList.remove("bg-cyan-400", "shadow-[0_0_15px_rgba(34,211,238,0.8)]", "scale-125");
+        }
+      };
+
+      // Update all desktop dots
+      desktopDotsRef.current.forEach(updateDot);
+      // Update all mobile dots
+      mobileDotsRef.current.forEach(updateDot);
     };
 
     window.addEventListener("scroll", onScroll, { passive: true });
+    // Trigger once on mount to set initial state
     onScroll();
 
     return () => window.removeEventListener("scroll", onScroll);
@@ -189,27 +232,18 @@ export default function JourneyTimeline() {
                   isLeft ? "md:justify-start" : "md:justify-end"
                 }`}
               >
-                {/* MOBILE DOT 
-                  - Changed bg-teal-700 to bg-cyan-400
-                  - Added ring-2 ring-cyan-100/50 for a hot core
-                  - Increased shadow blur and opacity
-                  - Added z-10 to sit on top of the line
-                */}
+                {/* Mobile Dot */}
                 <span 
-                  className="md:hidden absolute left-[10px] top-8 h-3 w-3 rounded-full 
-                  bg-cyan-400 ring-2 ring-cyan-100/50 shadow-[0_0_16px_rgba(34,211,238,1)] z-10" 
+                  ref={el => mobileDotsRef.current[index] = el}
+                  className="md:hidden absolute left-[10px] top-8 h-3 w-3 rounded-full border border-teal-700 bg-teal-900 transition-all duration-300" 
                 />
 
                 <div className="md:w-1/2 w-full pl-10 pr-4 md:px-4 relative">
-                  {/* DESKTOP DOT 
-                    - Changed bg-teal-500 to bg-cyan-400
-                    - Added ring-2 ring-cyan-100/50
-                    - Increased shadow blur and opacity
-                    - Added z-10
-                  */}
+                  {/* Desktop Dot */}
                   <span
+                    ref={el => desktopDotsRef.current[index] = el}
                     className={`hidden md:block absolute top-8 h-4 w-4 rounded-full
-                      bg-cyan-400 ring-2 ring-cyan-100/50 shadow-[0_0_20px_rgba(34,211,238,1)] z-10
+                      border border-teal-700 bg-teal-900 transition-all duration-300
                       ${isLeft ? "-right-2" : "-left-2"}`}
                   />
 
@@ -225,6 +259,12 @@ export default function JourneyTimeline() {
                     <p className="text-gray-500 mt-3 text-sm">
                       📍 {event.location}
                     </p>
+
+                    {event.description && (
+                      <p className="text-gray-400 mt-3 text-sm leading-relaxed border-t border-teal-500/10 pt-3">
+                        {event.description}
+                      </p>
+                    )}
 
                     <span className="inline-block mt-5 text-xs px-3 py-1 rounded-full bg-teal-500/10 text-teal-300 border border-teal-400/30">
                       {event.category}
