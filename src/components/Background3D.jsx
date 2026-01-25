@@ -1,111 +1,88 @@
 import { Canvas, useFrame } from "@react-three/fiber";
-import { useMemo, useRef } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import * as THREE from "three";
 
-/* ---------------- CONTINUOUS STARFIELD (SPIRAL GALAXY) ---------------- */
+/* ---------------- SCROLL-REVEALED STARFIELD ---------------- */
 
-function StarField() {
+function StarField({ scrollProgressRef }) {
   const pointsRef = useRef(null);
 
-  // Increased count for better definition of the spiral shape
-  const COUNT = 800;
+  const COUNT = 420;
 
-  // We need two things:
-  // 1. "starData" to store the invariant parameters (radius, initial angle, speed, z-depth)
-  // 2. "positions" to hold the mutable X/Y/Z coordinates for the buffer attribute
-  const { starData, positions } = useMemo(() => {
-    const starData = new Float32Array(COUNT * 4); // [radius, angle, speed, z]
-    const positions = new Float32Array(COUNT * 3); // [x, y, z]
+  const { basePositions, currentPositions, directions } = useMemo(() => {
+    const basePositions = new Float32Array(COUNT * 3);
+    const directions = new Float32Array(COUNT * 3);
 
     for (let i = 0; i < COUNT; i++) {
-      // 1. RADIUS: Spread stars out from center (0.2 to 5)
-      const r = Math.random() * 5 + 0.2;
+      // Deep-space distribution
+      const r = Math.random() * 2.4;
+      const theta = Math.random() * Math.PI * 2;
+      const phi = Math.acos(2 * Math.random() - 1);
 
-      // 2. ANGLE: Create 5 distinct "arms" for a star-like spiral shape
-      const branches = 5;
-      const branchAngle = ((i % branches) / branches) * Math.PI * 2;
-      
-      // Add "spin" based on radius to curve the arms (spiral effect)
-      // Add randomness to spread them out slightly so it's not a perfect line
-      const spinAngle = r * 0.8;
-      const randomOffset = (Math.random() - 0.5) * 0.5;
-      const finalAngle = branchAngle + spinAngle + randomOffset;
+      const x = r * Math.sin(phi) * Math.cos(theta);
+      const y = r * Math.sin(phi) * Math.sin(theta);
+      const z = (Math.random() - 0.5) * 5;
 
-      // 3. SPEED: Inner stars rotate faster, outer stars slower (standard galaxy physics)
-      const speed = (Math.random() * 0.2 + 0.1) + (1 / r) * 0.5;
+      basePositions.set([x, y, z], i * 3);
 
-      // 4. Z-DEPTH: Random scatter in height/depth
-      const z = (Math.random() - 0.5) * 2;
-
-      // Store params
-      starData[i * 4] = r;          // Radius
-      starData[i * 4 + 1] = finalAngle; // Initial Angle
-      starData[i * 4 + 2] = speed;  // Rotation Speed
-      starData[i * 4 + 3] = z;      // Base Z height
-
-      // Set initial positions (though useFrame will immediately overwrite this)
-      positions[i * 3] = r * Math.cos(finalAngle);
-      positions[i * 3 + 1] = r * Math.sin(finalAngle);
-      positions[i * 3 + 2] = z;
+      // Radial dispersion vectors
+      // INCREASED SPEED: Multipliers increased from 2.2 to 7.0
+      // This ensures stars move significantly even during fast scrolling
+      directions.set(
+        [x * 7.0, y * 7.0, z * 5.0],
+        i * 3
+      );
     }
 
-    return { starData, positions };
+    // CLONE: Create a separate array for the buffer attribute to mutate.
+    // basePositions remains static so the animation can reset every time.
+    const currentPositions = new Float32Array(basePositions);
+
+    return { basePositions, currentPositions, directions };
   }, []);
 
-  useFrame((state) => {
-    if (!pointsRef.current) return;
+  useFrame(() => {
+    const t = scrollProgressRef.current; // 0 → 1 (hero-relative)
 
-    const t = state.clock.getElapsedTime();
     const posAttr = pointsRef.current.geometry.attributes.position;
     const material = pointsRef.current.material;
 
-    // Animate every star
+    // STAR POSITIONS (reversible)
     for (let i = 0; i < COUNT; i++) {
-      const i4 = i * 4;
       const i3 = i * 3;
-
-      const r = starData[i4];
-      const initialAngle = starData[i4 + 1];
-      const speed = starData[i4 + 2];
-      const zBase = starData[i4 + 3];
-
-      // Calculate current rotation angle: Initial + (Time * Speed * specificFactor)
-      // * 0.1 slows down the overall simulation speed
-      const currentAngle = initialAngle - t * speed * 0.1;
-
-      // Convert Polar (Angle, Radius) -> Cartesian (X, Y)
-      const x = r * Math.cos(currentAngle);
-      const y = r * Math.sin(currentAngle);
-      
-      // Add a gentle "breathing" wave to the Z axis
-      const z = zBase + Math.sin(t * 0.5 + r) * 0.1;
-
-      posAttr.array[i3] = x;
-      posAttr.array[i3 + 1] = y;
-      posAttr.array[i3 + 2] = z;
+      // Read from immutable basePositions, write to mutable posAttr
+      // This logic ensures the animation works EVERY time you scroll
+      posAttr.array[i3]     = basePositions[i3]     + directions[i3]     * t;
+      posAttr.array[i3 + 1] = basePositions[i3 + 1] + directions[i3 + 1] * t;
+      posAttr.array[i3 + 2] = basePositions[i3 + 2] + directions[i3 + 2] * t;
     }
-    
     posAttr.needsUpdate = true;
 
-    // Twinkling effect: Pulse size slightly based on time
-    material.size = 0.018 + Math.sin(t * 2) * 0.010;
-    material.opacity = 0.5; // Constant visibility for the galaxy
+    /* ---------------- FASTER REVEAL ---------------- */
+    // Changed t * 8 to t * 20
+    // Stars now reach full brightness at just 5% scroll depth
+    const reveal = Math.min(t * 20, 1);
+
+    material.opacity = reveal * 0.5;          
+    material.size = 0.012 + reveal * 0.03;    
   });
 
   return (
     <points ref={pointsRef}>
       <bufferGeometry>
+        {/* IMPORTANT: Use currentPositions here, not basePositions */}
         <bufferAttribute
           attach="attributes-position"
-          array={positions}
-          count={positions.length / 3}
+          array={currentPositions} 
+          count={currentPositions.length / 3}
           itemSize={3}
         />
       </bufferGeometry>
 
       <pointsMaterial
-        color="#ffffff"
-        size={0.015}
+        color="#9cf6f6"
+        size={0.01}
+        opacity={0}
         transparent
         depthWrite={false}
         sizeAttenuation
@@ -118,11 +95,32 @@ function StarField() {
 /* ---------------- BACKGROUND SCENE ---------------- */
 
 export default function Background3D() {
+  const progressRef = useRef(0);
+
+  useEffect(() => {
+    const hero = document.getElementById("home");
+    if (!hero) return;
+
+    const onScroll = () => {
+      const rect = hero.getBoundingClientRect();
+      const total = rect.height;
+
+      // Hero-relative progress: 0 → 1 → 0
+      const t = Math.min(Math.max(-rect.top / total, 0), 1);
+      progressRef.current = t;
+    };
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
   return (
     <div className="absolute inset-0 z-0 pointer-events-none">
-      <Canvas camera={{ position: [0, 0, 6], fov: 60 }}>
-        <ambientLight intensity={0.25} />
-        <StarField />
+      <Canvas camera={{ position: [0, 0, 5], fov: 52 }}>
+        <ambientLight intensity={0.3} />
+        <StarField scrollProgressRef={progressRef} />
       </Canvas>
     </div>
   );
