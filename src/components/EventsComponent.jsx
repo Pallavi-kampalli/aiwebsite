@@ -16,7 +16,7 @@ import {
 
 /* -------------------- CONFIGURATION -------------------- */
 
-const COMBO_PASS_GOOGLE_FORM = "https://docs.google.com/forms/d/e/1FAIpQLScEyHoI4dyu5vvK2Ikca__rkB887yXrfeSTncom4m1Ann4miw/viewform";
+const COMBO_PASS_GOOGLE_FORM = "https://aspireup.ai/organization/krithomedh-vnrvjiet/event/100036";
 
 /* -------------------- DATA -------------------- */
 
