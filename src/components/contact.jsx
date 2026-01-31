@@ -181,7 +181,7 @@ const Contact = () => {
 
                       {/* Dept */}
                       <p className="text-sm text-gray-400">
-                        Dept. of CSE-AIML, IOT & RAI
+                        Dept. of CSE- (AIML & IoT), R&AI
                       </p>
                     </div>
                   ))}
