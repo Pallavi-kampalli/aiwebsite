@@ -13,6 +13,7 @@ import {
   ArrowLeft,
   Ticket,
   X,
+  ExternalLink,
 } from "lucide-react";
 
 /* -------------------- CONFIGURATION -------------------- */
@@ -27,102 +28,106 @@ const eventsData = [
     id: 7,
     title: "All-Access Combo Pass",
     icon: <Ticket className="w-8 h-8 text-yellow-600" />,
-    teaser: "Unlock the full AI Week experience at a discounted price.",
-
-    // 👇 UPDATED TO YOUR NEW FILE NAME
+    teaser: "Unlock the full AI Week at a discounted rate",
     poster: "/Main_poster.png",
-
     description: "Why choose one when you can have it all? The All-Access Combo Pass is the ultimate ticket for the dedicated innovator. It grants you entry to all 6 events—including every workshop, the hackathon, and the ML challenge—at a significantly bundled rate. Maximize your learning, network with everyone, and don't miss a single moment of AI Week.",
     date: "All Week Access",
     time: "Full Event Access",
     venue: "E Block VNRVJIET",
     Type: "Individual / Team",
+    // Combo pass logic is handled separately via the Modal popup
+    registrationLink: null, 
   },
   {
     id: 1,
     title: "AI tools workshop",
     icon: <Brain className="w-8 h-8 text-cyan-400" />,
-    teaser:
-      "Kickstarting AI Week with industry leaders discussing AGI and the future of work.",
-    poster: "/kritoathon.jpeg",
-    description:
-      "This workshop introduces AI tools transforming industries.Participants get hands-on experience with practical applications. It’s interactive, beginner-friendly, and empowers attendees to use AI confidently.",
-    date: "9th Feb, 2026",
-    time: "10:30 AM - 01:00 PM",
-    venue: "Classroom",
+    teaser: "Kickstarting AI Week with industry leaders discussing AGI and the future of work.",
+    poster: "/AI_tools_workshop.jpeg",
+    description: "This workshop introduces AI tools transforming industries. Participants get hands-on experience with practical applications. It’s interactive, beginner-friendly, and empowers attendees to use AI confidently.",
+    date: "11th Feb, 2026",
+    time: "10:00 AM - 01:00 PM",
+    venue: "E Block VNRVJIET",
     Type: "Individual",
+    registrationLink: "https://aspireup.ai/organization/krithomedh-vnrvjiet/event/100045",
   },
   {
     id: 2,
     title: "Robotics Workshop",
     icon: <Network className="w-8 h-8 text-emerald-400" />,
     teaser: "A beginner-friendly workshop on building machines.",
-    poster: "/kritoathon.jpeg",
-    description: "Explore the world where hardware meets intelligence in this robotics workshop.Participants will learn how machines can be programmed to think, move, and act.Through hands-on concepts and demonstrations, the session sparks curiosity about the future of robotics.",
-    date: "9th Feb, 2026",
+    poster: "/Robotics_Workshop.jpeg",
+    description: "Explore the world where hardware meets intelligence in this robotics workshop. Participants will learn how machines can be programmed to think, move, and act. Through hands-on concepts and demonstrations, the session sparks curiosity about the future of robotics.",
+    date: "11th Feb, 2026",
     time: "02:00 PM - 04:40 PM",
-    venue: "Lab Complex B",
+    venue: "E Block VNRVJIET",
     Type: "Individual",
+    registrationLink: "https://aspireup.ai/organization/krithomedh-vnrvjiet/event/100041",
   },
   {
     id: 3,
     title: "Startup Expo",
     icon: <Sparkles className="w-8 h-8 text-purple-400" />,
     teaser: "Explore AI-driven startups.",
-    poster: "/kritoathon.jpeg",
-    description: "The Startup Expo celebrates ideas, ambition, and entrepreneurship.Students and innovators showcase projects, products, and future visions. It’s a chance to network, get inspired, and fuel your entrepreneurial spirit.",
+    poster: "/StartUp_expo.jpeg",
+    description: "The Startup Expo celebrates ideas, ambition, and entrepreneurship. Students and innovators showcase projects, products, and future visions. It’s a chance to network, get inspired, and fuel your entrepreneurial spirit.",
     date: "10th Feb, 2026",
     time: "10:00 AM - 05:00 PM",
-    venue: "Atrium Hall",
-    Type: "Team size()",
+    venue: "E Block VNRVJIET",
+    Type: "Team size(1 - 4)",
+    registrationLink: "https://aspireup.ai/organization/krithomedh-vnrvjiet/event/100042",
   },
   {
     id: 4,
-    title: "ML Challenge + Data Creation",
+    title: "ML Challenge",
     icon: <Terminal className="w-8 h-8 text-rose-400" />,
     teaser: "Train and compete with ML models.",
-    poster: "/kritoathon.jpeg",
+    poster: "/ML_challenge.jpeg",
     description: "This challenge is where creativity meets problem-solving. Participants will dive into machine learning tasks, experimenting with synthetic data to build smarter models. It’s not just a competition—it’s a chance to learn, collaborate, and push the boundaries of what’s possible with data. The energy of teamwork and innovation will make this event a highlight.",
-    date: "11th Feb, 2026",
+    date: "9th-10th Feb, 2026",
     time: "10:00 AM - 05:00 PM",
-    venue: "Innovation Hub",
-    Type: "Team size()",
+    venue: "E Block VNRVJIET",
+    Type: "Team size(2 - 4)",
+    registrationLink: "https://aspireup.ai/organization/krithomedh-vnrvjiet/event/100044",
   },
   {
     id: 5,
     title: "Vibe Coding Hackathon",
     icon: <Cpu className="w-8 h-8 text-amber-400" />,
     teaser: "AI-powered coding without writing code.",
-    poster: "/kritoathon.jpeg",
-    description: "The hackathon combines coding with adrenaline across two intense rounds.Participants tackle real-world problems, collaborate, and build impactful solutions.High energy, teamwork, and “aha!” moments make it an exciting learning experience.",
+    poster: "/Vibe_coding.jpeg",
+    description: "The hackathon combines coding with adrenaline across two intense rounds. Participants tackle real-world problems, collaborate, and build impactful solutions. High energy, teamwork, and “aha!” moments make it an exciting learning experience.",
     date: "12th Feb, 2026",
-    time: "10:00 AM - 05:00 PM",
-    venue: "Seminar Hall 1",
-    Type: "Individual",
+    time: "10:00 AM - 04:40 PM",
+    venue: "E Block VNRVJIET",
+    Type: "Team size(2 - 4)",
+    registrationLink: "https://aspireup.ai/organization/krithomedh-vnrvjiet/event/100040",
   },
   {
     id: 6,
-    title: "Agentic AI + Deployment Workshop",
+    title: "Agentic AI Workshop",
     icon: <Zap className="w-8 h-8 text-orange-400" />,
     teaser: "From agents to deployed apps.",
-    poster: "/kritoathon.jpeg",
+    poster: "/Agentic_AI_workshop.jpeg",
     description: "This workshop focuses on the cutting edge of AI—agentic systems and deployment strategies. Participants will learn how to move beyond theory, taking applications from development to real-world use. It’s a practical, future-focused session that equips attendees with skills to make their AI projects truly impactful.",
     date: "13th Feb, 2026",
     time: "10:00 AM - 01:00 PM",
-    venue: "Classroom",
+    venue: "E Block VNRVJIET",
     Type: "Individual",
+    //registrationLink: "https://aspireup.ai/organization/krithomedh-vnrvjiet/event/100046",
   },
   {
     id: 8,
     title: "Synth vision Hackathon",
     icon: <Zap className="w-8 h-8 text-orange-400" />,
-    teaser: "From agents to deployed apps.",
-    poster: "/kritoathon.jpeg",
-    description: "This workshop focuses on the cutting edge of AI—agentic systems and deployment strategies. Participants will learn how to move beyond theory, taking applications from development to real-world use. It’s a practical, future-focused session that equips attendees with skills to make their AI projects truly impactful.",
-    date: "13th Feb, 2026",
-    time: "10:00 AM - 01:00 PM",
-    venue: "Classroom",
-    Type: "Individual",
+    teaser: "Next-gen Computer Vision challenge.",
+    poster: "/Synth_Vision.jpeg",
+    description: "Dive into the world of computer vision and synthetic data. Participants will work on cutting-edge visual recognition challenges. It’s a practical session that equips attendees with skills to make their AI projects truly impactful.",
+    date: "9th-10th Feb, 2026",
+    time: "10:00 AM - 05:00 PM",
+    venue: "E Block VNRVJIET",
+    Type: "Team size(2 - 4)",
+    registrationLink: "https://aspireup.ai/organization/krithomedh-vnrvjiet/event/100043",
   },
 ];
 
@@ -150,8 +155,7 @@ const EventModal = ({ event, onClose }) => {
     ? "from-yellow-500 to-amber-500"
     : "from-[#206a6e] to-[#28a3a9]";
 
-  // --- RENDER CONTENT BASED ON EVENT TYPE ---
-
+  // --- RENDER CONTENT ---
   const renderActiveEventContent = () => (
     <>
       <div className="w-full overflow-hidden">
@@ -189,34 +193,6 @@ const EventModal = ({ event, onClose }) => {
     </>
   );
 
-  const renderComingSoonContent = () => (
-    <div className="flex-1 flex flex-col items-center justify-center p-6 text-center">
-      <div className="max-w-lg w-full bg-white/5 border border-white/10 rounded-2xl p-10 backdrop-blur-sm shadow-2xl relative overflow-hidden">
-        {/* Decorative Background Glow */}
-        <div className={`absolute top-0 left-0 w-full h-1 bg-gradient-to-r ${headerGradient}`} />
-
-        <div className="flex justify-center mb-6">
-          <Clock className="w-16 h-16 text-teal-500 opacity-80" />
-        </div>
-
-        <h2 className={`text-2xl md:text-3xl font-bold mb-4 bg-gradient-to-r ${headerGradient} bg-clip-text text-transparent`}>
-          {event.title}
-        </h2>
-
-        <div className="h-px w-20 bg-white/10 mx-auto my-6"></div>
-
-        <h3 className="text-xl md:text-2xl font-semibold text-white mb-3">
-          Registrations Opening Soon
-        </h3>
-
-        <p className="text-gray-400 leading-relaxed">
-          We are finalizing the details for this event.
-          <br />Check back shortly to secure your spot!
-        </p>
-      </div>
-    </div>
-  );
-
   return (
     <>
       <div
@@ -246,24 +222,37 @@ const EventModal = ({ event, onClose }) => {
 
           {/* Content Area */}
           <div className="flex-1 overflow-y-auto">
-            {isCombo ? renderActiveEventContent() : renderComingSoonContent()}
+            {renderActiveEventContent()}
           </div>
 
-          {/* Sticky Button (ONLY FOR COMBO PASS) */}
-          {isCombo && (
-            <div className="sticky bottom-0 w-full p-4 bg-[#050505]/90 backdrop-blur border-t border-white/10 flex justify-center">
+          {/* Sticky Button Logic - Displays for BOTH Combo and Single Events */}
+          <div className="sticky bottom-0 w-full p-4 bg-[#050505]/90 backdrop-blur border-t border-white/10 flex justify-center">
+            {isCombo ? (
+              // COMBO PASS BUTTON
               <button
                 onClick={() => setShowBundleSelection(true)}
                 className="w-full md:w-auto md:px-16 py-4 rounded-xl font-bold text-white transition-all duration-300 hover:opacity-90 hover:scale-105 active:scale-95 shadow-lg bg-gradient-to-r from-yellow-600 to-amber-700 shadow-amber-900/20 text-center"
               >
                 Grab the Bundle
               </button>
-            </div>
-          )}
+            ) : (
+              // INDIVIDUAL EVENT BUTTON
+              <a
+                href={event.registrationLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-center gap-2 w-full md:w-auto md:px-16 py-4 rounded-xl font-bold text-white transition-all duration-300 hover:opacity-90 hover:scale-105 active:scale-95 shadow-lg bg-gradient-to-r from-teal-600 to-cyan-700 shadow-cyan-900/20 text-center"
+              >
+                Register Now
+                <ExternalLink className="w-5 h-5" />
+              </a>
+            )}
+          </div>
+
         </div>
       </div>
 
-      {/* Bundle Selection Popup */}
+      {/* Bundle Selection Popup (Only for Combo Pass) */}
       {showBundleSelection && (
         <div className="fixed inset-0 z-[60] flex items-center justify-center p-4">
           <div
@@ -296,7 +285,6 @@ const EventModal = ({ event, onClose }) => {
               </a>
 
               <a
-                // TODO: Update link for Non-VNRVJIET Pass
                 href="https://aspireup.ai/organization/krithomedh-vnrvjiet/event/100037"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -358,29 +346,48 @@ const EventCard = ({ event, onRegister }) => {
         style={{ background: glowBackground }}
       />
 
-      {/* Main Card Content - Made Clickable */}
+      {/* Main Card Content */}
       <div
-        onClick={onRegister} // 👈 1. Added Click Handler Here
-        className={`glass-panel relative h-full rounded-2xl p-6 flex flex-col justify-between transition-all duration-500 bg-[rgba(8,28,30,0.75)] border group-hover:-translate-y-1 group-hover:bg-[rgba(8,34,36,0.85)] ${borderColor} cursor-pointer`} // 👈 2. Added cursor-pointer
+        onClick={onRegister}
+        className={`glass-panel relative h-full rounded-2xl p-6 flex flex-col justify-between transition-all duration-500 bg-[rgba(8,28,30,0.75)] border group-hover:-translate-y-1 group-hover:bg-[rgba(8,34,36,0.85)] ${borderColor} cursor-pointer`}
       >
         <div>
           <div className="mb-5 flex justify-between items-start">
             {event.icon}
             {isCombo && (
-              <span className="bg-yellow-500/20 text-yellow-300 text-[10px] font-bold px-2 py-1 rounded border border-yellow-500/30">
+              <span className="animate-pulse bg-yellow-500/20 text-yellow-300 text-[10px] font-bold px-2 py-1 rounded border border-yellow-500/30 shadow-[0_0_10px_rgba(234,179,8,0.2)]">
                 BEST VALUE
               </span>
             )}
           </div>
-          <h3 className={`text-xl font-bold mb-3 ${titleColor}`}>
+
+          <h3 className={`text-xl font-bold mb-2 ${titleColor}`}>
             {event.title}
           </h3>
+
+          {/* Pricing Display for Combo Pass */}
+          {isCombo && (
+            <div className="flex flex-col mb-3 space-y-1">
+              <span className="text-gray-500 text-xs font-medium line-through decoration-red-500/60 decoration-2">
+                Worth ₹699
+              </span>
+              <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm font-bold">
+                <div className="text-yellow-400 whitespace-nowrap">
+                  ₹299 <span className="text-gray-400 text-[10px] font-normal uppercase">VNR</span>
+                </div>
+                <div className="text-gray-600">|</div>
+                <div className="text-yellow-400 whitespace-nowrap">
+                  ₹399 <span className="text-gray-400 text-[10px] font-normal uppercase">Non-VNR</span>
+                </div>
+              </div>
+            </div>
+          )}
+
           <p className="text-gray-400 text-sm leading-relaxed">
             {event.teaser}
           </p>
         </div>
 
-        {/* Button is now purely visual (click passes through to parent) */}
         <button
           type="button"
           className={`mt-6 inline-flex items-center text-sm font-semibold transition ${linkColor}`}
@@ -417,27 +424,26 @@ const EventsComponent = ({ selectedEvent, setSelectedEvent }) => {
         </div>
 
         {/* Regular Events */}
-<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-  {regularEvents.map((event, index) => {
-    const isLastItem = index === regularEvents.length - 1;
-    const shouldCenter = isLastItem && regularEvents.length % 3 === 1;
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {regularEvents.map((event, index) => {
+            const isLastItem = index === regularEvents.length - 1;
+            const shouldCenter = isLastItem && regularEvents.length % 3 === 1;
 
-    return (
-      <div
-        key={event.id}
-        data-aos="fade-up"
-        data-aos-once="false"
-        // 👇 Added lg:col-start-2 conditionally
-        className={`h-full ${shouldCenter ? "lg:col-start-2" : ""}`}
-      >
-        <EventCard
-          event={event}
-          onRegister={() => setSelectedEvent(event)}
-        />
-      </div>
-    );
-  })}
-</div>
+            return (
+              <div
+                key={event.id}
+                data-aos="fade-up"
+                data-aos-once="false"
+                className={`h-full ${shouldCenter ? "lg:col-start-2" : ""}`}
+              >
+                <EventCard
+                  event={event}
+                  onRegister={() => setSelectedEvent(event)}
+                />
+              </div>
+            );
+          })}
+        </div>
 
       </div>
 

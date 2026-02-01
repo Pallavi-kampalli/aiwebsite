@@ -1,44 +1,56 @@
 import { useEffect, useRef } from "react";
 
 const EVENTS = [
+  // --- DAY 1: Feb 9 ---
   {
     id: "0",
     title: "Inauguration",
     startTime: "09:30 AM",
-    endTime: "01:30 PM",
+    endTime: "10:00 AM",
     date: "Feb 9, 2026",
-    location: "Main Auditorium",
+    location: "E-Block",
     category: "Ceremony",
     description: "AI Week begins with an inspiring inauguration that brings together curious minds, passionate learners, and visionary leaders, setting the stage for five days of innovation and collaboration.",
   },
   {
     id: "1",
-    title: "ML Challenge + Synthetic Data Creation",
+    title: "ML Challenge",
     startTime: "10:00 AM",
     endTime: "05:00 PM",
     date: "Feb 9-10, 2026",
-    POC: "Contact for more info:",
-    location: "TBD",
+    location: "E-Block",
     category: "Contests",
   },
+  {
+    id: "8",
+    title: "Synth Vision",
+    startTime: "10:00 AM",
+    endTime: "05:00 PM",
+    date: "Feb 9-10th, 2026",
+    location: "E-Block",
+    category: "Hackathons",
+    description: "Generating Synthetic Datasets for All-Weather AI",
+  },
+
+  // --- DAY 2: Feb 10 ---
   {
     id: "2",
     title: "Startup Expo",
     startTime: "10:00 AM",
     endTime: "05:00 PM",
     date: "Feb 10, 2026",
-    POC: "Contact for more info:",
-    location: "TBD",
+    location: "E-Block",
     category: "Contests",
   },
+
+  // --- DAY 3: Feb 11 ---
   {
     id: "3",
     title: "AI Tools Workshop",
-    startTime: "10:30 AM",
+    startTime: "10:00 AM",
     endTime: "01:00 PM",
     date: "Feb 11, 2026",
-    POC: "Contact for more info:",
-    location: "TBD",
+    location: "E-Block",
     category: "Workshops",
   },
   {
@@ -47,29 +59,29 @@ const EVENTS = [
     startTime: "02:00 PM",
     endTime: "04:40 PM",
     date: "Feb 11, 2026",
-    POC: "Contact for more info:",
-    location: "TBD",
+    location: "E-Block",
     category: "Workshops",
   },
-   
+
+  // --- DAY 4: Feb 12 ---
   {
     id: "5",
     title: "Vibe Coding Hackathon",
     startTime: "10:00 AM",
-    endTime: "05:00 PM",
+    endTime: "04:40 PM",
     date: "Feb 12, 2026",
-    POC: "Contact for more info:",
-    location: "TBD",
+    location: "E-Block",
     category: "Hackathons",
   },
+
+  // --- DAY 5: Feb 13 ---
   {
     id: "6",
-    title: "Agentic-AI & Deployment Workshop",
-    startTime: "09:00 AM",
+    title: "Agentic-AI Workshop",
+    startTime: "10:00 AM",
     endTime: "01:00 PM",
     date: "Feb 13, 2026",
-    POC: "Contact for more info:",
-    location: "Innovation Hub",
+    location: "E-Block",
     category: "Workshops",
   },
   {
@@ -78,8 +90,8 @@ const EVENTS = [
     startTime: "02:00 PM",
     endTime: "05:00 PM",
     date: "Feb 13, 2026",
-    location: "Main Auditorium",
-    category: "Ceremony",
+    location: "E-Block",
+    category: "Ceremony", // Changed from Hackathons to Ceremony
     description: "AI Week concludes with a heartfelt closing ceremony that celebrates the journey of learning, collaboration, and innovation. Certificates will be distributed to recognize participation and achievement, but more importantly, it’s a moment to reflect on the experiences shared and the friendships built. The week may end here, but the inspiration will carry forward",
   },
 ];

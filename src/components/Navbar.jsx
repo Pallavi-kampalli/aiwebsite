@@ -11,17 +11,30 @@ function Navbar({ hidden }) {
       bg-[rgba(5,10,10,0.9)] backdrop-blur-lg z-[1000]
       border-b border-[rgba(0,255,200,0.25)]">
 
-      {/* Logo */}
-      
-      <section className="flex items-center text-[1.4rem] font-bold cursor-pointer 
-        bg-gradient-to-r from-[#206a6e] to-[#28a3a9] 
-        bg-clip-text text-transparent">
+      {/* Logo Section */}
+      <section className="flex items-center gap-3 cursor-pointer">
+        {/* Image */}
         <img
           src="/logo.png"
           alt="logo"
-          className="h-8 w-auto md:h-10 object-contain"
+          className="h-9 w-auto md:h-11 object-contain"
         />
-        <span className="ml-1">AI WEEK</span>
+        
+        {/* Text Stacked Vertically */}
+        <div className="flex flex-col justify-center items-start bg-gradient-to-r from-[#206a6e] to-[#28a3a9] bg-clip-text text-transparent">
+          
+          {/* Top: KRITHOMEDH */}
+          {/* Added 'text-left' and removed extra spacing that might misalign it */}
+          <span className="text-[0.6rem] md:text-[0.7rem] font-semibold tracking-[0.35em] leading-tight text-[#28a3a9] uppercase text-left">
+            KRITHOMEDH
+          </span>
+          
+          {/* Bottom: AI WEEK */}
+          {/* Added 'text-left' and '-ml-0.5' to pull it slightly if the font has natural padding */}
+          <span className="text-xl md:text-2xl font-extrabold tracking-tight leading-none text-left">
+            AI WEEK
+          </span>
+        </div>
       </section>
 
       {/* Hamburger */}
@@ -52,7 +65,7 @@ function Navbar({ hidden }) {
           gap-6 md:gap-7 py-8 md:py-0
           transition-all duration-300
           ${menuOpen ? "opacity-100 translate-y-0 pointer-events-auto" 
-                     : "opacity-0 -translate-y-5 pointer-events-none md:opacity-100 md:translate-y-0 md:pointer-events-auto"}
+                      : "opacity-0 -translate-y-5 pointer-events-none md:opacity-100 md:translate-y-0 md:pointer-events-auto"}
         `}
       >
         {["Home", "Events", "Timeline", "About", "Contact"].map((item, i) => (
