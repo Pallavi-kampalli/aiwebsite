@@ -477,16 +477,21 @@ const EventCard = ({ event, onRegister }) => {
           {/* Pricing Display for Combo Pass */}
           {isCombo && (
             <div className="flex flex-col mb-3 space-y-1">
+              {/* Added Temporary Offer Text */}
+              <span className="text-orange-400 text-[10px] font-bold uppercase tracking-wider animate-pulse mb-1">
+                ⚡ Temporary Offer
+              </span>
+
               <span className="text-gray-500 text-xs font-medium line-through decoration-red-500/60 decoration-2">
                 Worth ₹699
               </span>
               <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm font-bold">
                 <div className="text-yellow-400 whitespace-nowrap">
-                  ₹299 <span className="text-gray-400 text-[10px] font-normal uppercase">VNR</span>
+                  ₹199 <span className="text-gray-400 text-[10px] font-normal uppercase">VNR</span>
                 </div>
                 <div className="text-gray-600">|</div>
                 <div className="text-yellow-400 whitespace-nowrap">
-                  ₹399 <span className="text-gray-400 text-[10px] font-normal uppercase">Non-VNR</span>
+                  ₹299 <span className="text-gray-400 text-[10px] font-normal uppercase">Non-VNR</span>
                 </div>
               </div>
             </div>
